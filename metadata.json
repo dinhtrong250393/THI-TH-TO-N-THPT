@@ -1,0 +1,8 @@
+{
+  "name": "THI THỬ CÙNG THẦY TRỌNG",
+  "description": "Ứng dụng hỗ trợ giáo viên tạo đề thi bằng AI và học sinh làm bài thi thử trực tuyến với thống kê điểm số.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

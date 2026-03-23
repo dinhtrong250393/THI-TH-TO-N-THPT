@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Thông tin người dùng (Giáo viên hoặc Học sinh)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["teacher", "student"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "Thông tin đề thi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "text": { "type": "string" },
+              "options": { "type": "array", "items": { "type": "string" } },
+              "correctAnswer": { "type": "string" },
+              "imageUrl": { "type": "string" }
+            }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "teacherId", "questions"]
+    },
+    "Submission": {
+      "title": "Submission",
+      "description": "Kết quả bài làm của học sinh",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "examId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "answers": { "type": "object" },
+        "score": { "type": "number" },
+        "wrongQuestionIds": { "type": "array", "items": { "type": "string" } },
+        "submittedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["examId", "studentId", "score"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Thông tin cá nhân người dùng"
+    },
+    "/exams/{examId}": {
+      "schema": "Exam",
+      "description": "Danh sách đề thi"
+    },
+    "/submissions/{submissionId}": {
+      "schema": "Submission",
+      "description": "Kết quả bài thi của học sinh"
+    }
+  }
+}
